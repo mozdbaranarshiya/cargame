@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#09111a" />
+  <title>Car City 3D Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div id="game" aria-label="محیط سه‌بعدی بازی"></div>
+
+  <section class="hud" aria-label="اطلاعات بازی">
+    <div class="brand">CAR CITY 3D PRO</div>
+    <div class="speed"><span id="speed">0</span><small> km/h</small></div>
+    <div class="hud-row">
+      <span class="surface" id="surface">خیابان</span>
+      <span class="status-pill" id="handbrakeState">ترمز دستی خاموش</span>
+    </div>
+    <div class="game-stats">
+      <div><span id="score">0</span><small>امتیاز</small></div>
+      <div><span id="coinCount">0/10</span><small>سکه</small></div>
+      <div><span id="level">1</span><small>مرحله</small></div>
+    </div>
+  </section>
+
+  <section class="radar-panel" aria-label="رادار">
+    <div class="panel-title">رادار</div>
+    <canvas id="radarCanvas" width="220" height="220"></canvas>
+    <div class="radar-caption"><span class="legend npc"></span>ترافیک <span class="legend coin"></span>سکه <span class="legend player"></span>شما</div>
+  </section>
+
+  <section class="top-actions" aria-label="عملیات بازی">
+    <button id="soundButton" class="ui-button" type="button" title="قطع و وصل صدا">صدا روشن</button>
+    <button id="cameraButton" class="ui-button" type="button" title="تغییر دوربین">دوربین ۱/۳</button>
+    <button id="resetButton" class="ui-button" type="button" title="شروع دوباره">شروع دوباره</button>
+  </section>
+
+  <section class="help" aria-label="راهنمای کنترل">
+    <strong>کنترل‌ها</strong>
+    <span>↑ یا W — گاز</span>
+    <span>↓ یا S — ترمز / دنده‌عقب</span>
+    <span>← → یا A / D — فرمان</span>
+    <span>Space — ترمز دستی</span>
+    <span>R — شروع دوباره</span>
+    <span>C — تغییر دوربین</span>
+    <span>M — قطع/وصل صدا</span>
+  </section>
+
+  <section class="touch-controls" aria-label="کنترل‌های لمسی">
+    <div class="touch-group steering-controls">
+      <button class="control-button" type="button" data-control="left" aria-label="فرمان چپ">←</button>
+      <button class="control-button" type="button" data-control="right" aria-label="فرمان راست">→</button>
+    </div>
+    <div class="touch-group drive-controls">
+      <button class="control-button gas" type="button" data-control="up" aria-label="گاز">↑</button>
+      <button class="control-button brake" type="button" data-control="down" aria-label="ترمز و دنده عقب">↓</button>
+      <button class="control-button handbrake" type="button" data-control="handbrake" aria-label="ترمز دستی">HB</button>
+    </div>
+  </section>
+
+  <div class="level-toast" id="levelToast"><strong>مرحله ۲</strong><span>ترافیک سریع‌تر شد</span></div>
+
+  <div class="start-card" id="startCard">
+    <div class="start-panel">
+      <div class="eyebrow">CAR CITY 3D PRO</div>
+      <h1>بازی ماشین سه‌بعدی حرفه‌ای</h1>
+      <p>در شهر زنده رانندگی کن، سکه جمع کن، مرحله‌ها را بالا ببر، از ترافیک عبور کن و با Space دریفت و ترمز دستی انجام بده.</p>
+      <button id="startButton" class="start-button" type="button">شروع بازی</button>
+      <small>کلید Enter یا Space هم بازی را شروع می‌کند.</small>
+    </div>
+  </div>
+
+  <noscript>
+    <div class="fatal-error">برای اجرای بازی باید JavaScript فعال باشد.</div>
+  </noscript>
+
+  <script defer src="https://unpkg.com/three@0.151.3/build/three.min.js"></script>
+  <script defer src="./game.js"></script>
+</body>
+</html>
