@@ -2,83 +2,63 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <meta name="theme-color" content="#09111a" />
-  <title>Car City 3D Pro</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#101920" />
+  <meta name="description" content="گاراژ شخصی تو، شش ماشین و یک شهر بزرگ برای رانندگی؛ بازی ماشین." />
+  <title>بازی ماشین | گاراژ و شهر</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23101920'/%3E%3Cpath d='M13 36h38l-5-13H20zM13 36v10h38V36M21 46v5m23-5v5' fill='none' stroke='%23a7e6d0' stroke-width='5' stroke-linejoin='round'/%3E%3C/svg%3E" />
   <link rel="stylesheet" href="./style.css" />
 </head>
-<body>
-  <div id="game" aria-label="محیط سه‌بعدی بازی"></div>
-
-  <section class="hud" aria-label="اطلاعات بازی">
-    <div class="brand">CAR CITY 3D PRO</div>
-    <div class="speed"><span id="speed">0</span><small> km/h</small></div>
-    <div class="hud-row">
-      <span class="surface" id="surface">خیابان</span>
-      <span class="status-pill" id="handbrakeState">ترمز دستی خاموش</span>
+<body class="in-menu">
+  <div id="game" aria-label="محیط سه‌بعدی رانندگی"></div>
+  <main class="garage" id="startCard">
+    <div class="garage-shell">
+      <header class="main-header">
+        <a class="brand-mark" href="/" aria-label="بازی ماشین، گاراژ"><span class="brand-symbol" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M5 19h22l-3-8H9l-4 8Zm0 0v7h22v-7M9 26v3m14-3v3" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M9 20h3m8 0h3" stroke="currentColor" stroke-width="2"/></svg></span><span><strong>بازی ماشین</strong><small>یک شهر. هزار مسیر.</small></span></a>
+        <nav class="header-nav" aria-label="منوی اصلی"><span class="nav-current">گاراژ من</span><button type="button" class="nav-button" id="helpButton">راهنمای بازی <span aria-hidden="true">↗</span></button></nav>
+        <div class="header-account"><span class="wallet" title="مجموع سکه‌های جمع‌شده"><span class="coin-symbol" aria-hidden="true">◈</span><strong id="totalCoins">۰</strong><span>سکه</span></span><button type="button" class="profile-button" id="accountButton"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="8" r="3.5" stroke="currentColor" stroke-width="1.6"/><path d="M5 21v-2a7 7 0 0 1 14 0v2" stroke="currentColor" stroke-width="1.6"/></svg><span id="profileLabel">ورود / ثبت‌نام</span></button></div>
+      </header>
+      <section class="hero" aria-labelledby="garageTitle">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="status-dot" aria-hidden="true"></span> به گاراژ خودت خوش آمدی</div>
+          <h1 id="garageTitle">شهر،<br />منتظر <span>توست.</span></h1>
+          <p class="hero-description">ماشینت را انتخاب کن و راه بیفت.<br />از خیابان‌های شهر تا جاده‌های دور،<br />هر مسیر یک ماجرای تازه است.</p>
+          <div class="hero-features"><span><i aria-hidden="true">⌁</i> شهر گسترده</span><span><i aria-hidden="true">◈</i> جمع‌آوری سکه</span><span><i aria-hidden="true">◷</i> رانندگی آزاد</span></div>
+          <div class="hero-start"><button id="startButton" class="primary-button drive-button" type="button" disabled><span id="startButtonLabel">در حال آماده‌سازی…</span><span class="button-arrow" aria-hidden="true">←</span></button><small id="engineStatus" role="status">محیط رانندگی در حال بارگذاری است.</small></div>
+          <p class="guest-note" id="guestNote">بدون ثبت‌نام هم بازی کن؛ پیشرفت مهمان در همین مرورگر می‌ماند.</p>
+        </div>
+        <div class="showcase" id="showcase" aria-label="پیش‌نمایش ماشین انتخاب‌شده">
+          <div class="showcase-rings" aria-hidden="true"></div><div class="stage-badge"><span class="status-dot" aria-hidden="true"></span> آمادهٔ رانندگی</div><span class="stage-watermark" aria-hidden="true">DRIVE</span><div class="garage-floor" aria-hidden="true"></div><div class="hero-car" id="heroCar"></div>
+          <div class="stage-caption"><div><span class="caption-label">انتخاب تو</span><h2 id="selectedCarName">ماشین شهری</h2><span id="selectedCarType">راحت و چابک</span></div><div class="stage-speed"><strong id="selectedCarSpeed">100</strong><span>حداکثر km/h</span></div></div><div class="stage-line" aria-hidden="true"></div>
+        </div>
+      </section>
+      <section class="collection" aria-labelledby="collectionTitle"><div class="section-heading"><div><span class="eyebrow">ماشین مناسب حال و هوای تو</span><h2 id="collectionTitle">انتخاب از گاراژ</h2></div><span class="collection-note"><span id="carCount">۶</span> مدل <span class="small-divider">/</span> همه آمادهٔ رانندگی</span></div><div class="car-grid" id="carGrid" role="group" aria-label="انتخاب ماشین"></div></section>
+      <section class="journey-strip" aria-label="اطلاعات حساب و تنظیم صدا">
+        <div class="journey-stat"><span class="strip-icon" aria-hidden="true">◈</span><div><small>سکه‌های جمع‌شده</small><strong><span id="summaryCoins">۰</span><span class="stat-unit"> سکه</span></strong></div></div>
+        <div class="journey-stat"><span class="strip-icon" aria-hidden="true">✧</span><div><small>امتیاز کل تو</small><strong id="totalScore">۰</strong></div></div>
+        <div class="volume-control"><label for="volumeSlider">صدای بازی <span id="volumeLabel">۸۰٪</span></label><input id="volumeSlider" type="range" min="0" max="100" value="80" aria-label="بلندی صدای بازی" /></div><button class="text-button" type="button" id="stripAccountButton">پیشرفتت را در حساب نگه دار <span aria-hidden="true">←</span></button>
+      </section>
+      <div class="menu-message" id="menuMessage" role="status" hidden></div>
+      <footer class="garage-footer"><span>به نام خدا <span class="small-divider">·</span> ساخته‌شده برای لذت رانندگی</span><a href="/admin">پنل مدیریت</a><span class="footer-city"><i class="status-dot" aria-hidden="true"></i> شهر همیشه بیدار است</span></footer>
     </div>
-    <div class="game-stats">
-      <div><span id="score">0</span><small>امتیاز</small></div>
-      <div><span id="coinCount">0/10</span><small>سکه</small></div>
-      <div><span id="level">1</span><small>مرحله</small></div>
-    </div>
-  </section>
-
-  <section class="radar-panel" aria-label="رادار">
-    <div class="panel-title">رادار</div>
-    <canvas id="radarCanvas" width="220" height="220"></canvas>
-    <div class="radar-caption"><span class="legend npc"></span>ترافیک <span class="legend coin"></span>سکه <span class="legend player"></span>شما</div>
-  </section>
-
-  <section class="top-actions" aria-label="عملیات بازی">
-    <button id="soundButton" class="ui-button" type="button" title="قطع و وصل صدا">صدا روشن</button>
-    <button id="cameraButton" class="ui-button" type="button" title="تغییر دوربین">دوربین ۱/۳</button>
-    <button id="resetButton" class="ui-button" type="button" title="شروع دوباره">شروع دوباره</button>
-  </section>
-
-  <section class="help" aria-label="راهنمای کنترل">
-    <strong>کنترل‌ها</strong>
-    <span>↑ یا W — گاز</span>
-    <span>↓ یا S — ترمز / دنده‌عقب</span>
-    <span>← → یا A / D — فرمان</span>
-    <span>Space — ترمز دستی</span>
-    <span>R — شروع دوباره</span>
-    <span>C — تغییر دوربین</span>
-    <span>M — قطع/وصل صدا</span>
-  </section>
-
-  <section class="touch-controls" aria-label="کنترل‌های لمسی">
-    <div class="touch-group steering-controls">
-      <button class="control-button" type="button" data-control="left" aria-label="فرمان چپ">←</button>
-      <button class="control-button" type="button" data-control="right" aria-label="فرمان راست">→</button>
-    </div>
-    <div class="touch-group drive-controls">
-      <button class="control-button gas" type="button" data-control="up" aria-label="گاز">↑</button>
-      <button class="control-button brake" type="button" data-control="down" aria-label="ترمز و دنده عقب">↓</button>
-      <button class="control-button handbrake" type="button" data-control="handbrake" aria-label="ترمز دستی">HB</button>
-    </div>
-  </section>
-
-  <div class="level-toast" id="levelToast"><strong>مرحله ۲</strong><span>ترافیک سریع‌تر شد</span></div>
-
-  <div class="start-card" id="startCard">
-    <div class="start-panel">
-      <div class="eyebrow">CAR CITY 3D PRO</div>
-      <h1>بازی ماشین سه‌بعدی حرفه‌ای</h1>
-      <p>در شهر زنده رانندگی کن، سکه جمع کن، مرحله‌ها را بالا ببر، از ترافیک عبور کن و با Space دریفت و ترمز دستی انجام بده.</p>
-      <button id="startButton" class="start-button" type="button">شروع بازی</button>
-      <small>کلید Enter یا Space هم بازی را شروع می‌کند.</small>
-    </div>
+  </main>
+  <div id="gameplayUI" class="gameplay-ui" hidden>
+    <section class="hud" aria-label="اطلاعات ماشین"><div class="hud-brand"><span id="hudCarName">بازی ماشین</span><span class="hud-live">DRIVE</span></div><div class="speed"><span id="speed">0</span><div><small>km/h</small><span>حداکثر <b id="speedMax">100</b></span></div><span class="gear" id="gear">N</span></div><div class="fuel-line"><span>بنزین</span><div class="fuel-track"><div id="fuelFill"></div></div><strong id="fuelValue">100%</strong></div><div class="hud-row"><span class="surface" id="surface">خیابان</span><span class="status-pill" id="handbrakeState">ترمز دستی خاموش</span><span id="indicatorLeft" class="indicator" aria-label="راهنمای چپ">←</span><span id="indicatorRight" class="indicator" aria-label="راهنمای راست">→</span></div><div class="game-stats"><div><strong id="score">0</strong><small>امتیاز</small></div><div><strong id="coinCount">0</strong><small>سکه این مرحله</small></div><div><strong id="level">1</strong><small>مرحله</small></div></div></section>
+    <section class="radar-panel" aria-label="نقشه شهر"><div class="panel-title">نقشه شهر <span aria-hidden="true">↗</span></div><canvas id="radarCanvas" width="220" height="220"></canvas><div class="radar-caption"><span><i class="legend npc"></i> ترافیک</span><span><i class="legend coin"></i> سکه</span><span><i class="legend fuel"></i> بنزین</span><span><i class="legend player"></i> شما</span></div></section>
+    <section class="top-actions" aria-label="عملیات رانندگی"><button id="menuButton" class="ui-button menu-button" type="button">گاراژ <span aria-hidden="true">↩</span></button><button id="soundButton" class="ui-button" type="button" title="قطع و وصل صدای بازی">صدا روشن</button><button id="cameraButton" class="ui-button" type="button" title="تغییر دوربین">دوربین ۱/۳</button><button id="resetButton" class="ui-button" type="button" title="بازگشت ماشین به نقطه شروع">بازنشانی ماشین</button></section>
+    <section class="car-actions" aria-label="تجهیزات ماشین"><button id="leftSignalButton" class="ui-button" type="button" title="راهنمای چپ (Q)" aria-label="راهنمای چپ" aria-pressed="false">←</button><button id="hornButton" class="ui-button" type="button" title="بوق (H)">بوق</button><button id="rightSignalButton" class="ui-button" type="button" title="راهنمای راست (E)" aria-label="راهنمای راست" aria-pressed="false">→</button><button id="lightsButton" class="ui-button" type="button" title="چراغ‌ها (L)" aria-pressed="false">چراغ</button><button id="refuelButton" class="ui-button" type="button" title="سوخت‌گیری نزدیک پمپ بنزین (F)">سوخت‌گیری</button></section>
+    <section class="touch-controls" aria-label="کنترل‌های لمسی"><div class="touch-group steering-controls"><button class="control-button" type="button" data-control="left" aria-label="فرمان چپ">←</button><button class="control-button" type="button" data-control="right" aria-label="فرمان راست">→</button></div><div class="touch-group drive-controls"><button class="control-button brake" type="button" data-control="down" aria-label="ترمز و دنده عقب">↓</button><button class="control-button handbrake" type="button" data-control="handbrake" aria-label="ترمز دستی">P</button><button class="control-button gas" type="button" data-control="up" aria-label="گاز">↑</button></div></section>
+    <div class="level-toast" id="levelToast" role="status"><strong>مرحله ۲</strong><span>مسیرهای تازه، ماجراجویی بیشتر</span></div>
   </div>
-
-  <noscript>
-    <div class="fatal-error">برای اجرای بازی باید JavaScript فعال باشد.</div>
-  </noscript>
-
-  <script defer src="https://unpkg.com/three@0.151.3/build/three.min.js"></script>
-  <script defer src="./game.js"></script>
+  <main id="adminPage" class="admin-page" hidden>
+    <header class="admin-header"><a class="brand-mark" href="/"><span class="brand-symbol" aria-hidden="true">↩</span><span><strong>بازی ماشین</strong><small>بازگشت به گاراژ</small></span></a><span class="admin-tag">پنل مدیریت</span><button id="adminLogoutButton" class="secondary-button" type="button" hidden>خروج مدیر</button></header>
+    <section class="admin-login-panel" id="adminLoginPanel"><div class="eyebrow">مدیریت سامانه</div><h1>ورود مدیر</h1><p>برای مشاهدهٔ کاربران و امتیازهای آن‌ها وارد حساب مدیریت شوید.</p><form id="adminLoginForm"><label>نام کاربری<input name="username" autocomplete="username" maxlength="40" required dir="auto" /></label><label>رمز عبور<input name="password" type="password" autocomplete="current-password" maxlength="128" required /></label><p class="form-error" id="adminError" role="alert" hidden></p><button class="primary-button" type="submit">ورود به پنل <span aria-hidden="true">←</span></button></form><p class="admin-access-note">برای دسترسی به پنل، ورود با نام کاربری و رمز عبور مدیر الزامی است.</p></section>
+    <section id="adminDashboard" hidden><div class="admin-title"><div><span class="eyebrow">وضعیت کاربران</span><h1>رانندگان شهر</h1></div><button id="refreshUsersButton" class="secondary-button" type="button">به‌روزرسانی فهرست ↻</button></div><div class="admin-stat-grid"><div><small>تعداد کاربران</small><strong id="adminUserCount">۰</strong></div><div><small>مجموع امتیازها</small><strong id="adminScoreCount">۰</strong></div><div><small>مجموع سکه‌ها</small><strong id="adminCoinCount">۰</strong></div></div><div class="admin-table-wrap"><table><caption class="sr-only">فهرست کاربران ثبت‌نام‌شده</caption><thead><tr><th scope="col">نام نمایشی</th><th scope="col">نام و نام خانوادگی</th><th scope="col">شماره موبایل</th><th scope="col">جنسیت</th><th scope="col">امتیاز</th><th scope="col">سکه</th></tr></thead><tbody id="adminUsersBody"></tbody></table><p id="adminEmpty" class="empty-message" hidden>هنوز راننده‌ای ثبت‌نام نکرده است.</p></div><p id="adminDashboardError" class="form-error" role="alert" hidden></p></section>
+  </main>
+  <dialog id="helpDialog" class="modal help-modal" aria-labelledby="helpTitle"><button class="dialog-close" type="button" data-close aria-label="بستن راهنما">×</button><div class="eyebrow">اولین دور تو در شهر</div><h2 id="helpTitle">فرمان دست توست.</h2><p class="modal-intro">سکه‌ها را جمع کن، شهر را کشف کن و بنزین را زیر نظر داشته باش. نزدیک پمپ بنزین توقف کن و سوخت بگیر.</p><div class="guide-grid"><div><kbd>W</kbd><kbd>↑</kbd><span>گاز</span></div><div><kbd>S</kbd><kbd>↓</kbd><span>ترمز و دنده‌عقب</span></div><div><kbd>A</kbd><kbd>D</kbd><span>فرمان چپ و راست</span></div><div><kbd>Space</kbd><span>ترمز دستی</span></div><div><kbd>H</kbd><span>بوق</span></div><div><kbd>Q</kbd><kbd>E</kbd><span>راهنمای چپ و راست</span></div><div><kbd>L</kbd><span>چراغ‌ها</span></div><div><kbd>F</kbd><span>سوخت‌گیری در پمپ</span></div><div><kbd>C</kbd><span>تغییر دوربین</span></div><div><kbd>R</kbd><span>بازنشانی ماشین</span></div><div><kbd>M</kbd><span>قطع / وصل صدا</span></div><div><kbd>Esc</kbd><span>بازگشت به گاراژ</span></div></div><p class="guide-tip">در موبایل، دکمه‌های روی صفحه کنترل ماشین را به دست تو می‌دهند. دکمهٔ گاراژ بازی را متوقف می‌کند.</p><button class="primary-button" type="button" data-close>آماده‌ام <span aria-hidden="true">←</span></button></dialog>
+  <dialog id="accountDialog" class="modal account-modal" aria-labelledby="accountTitle"><button class="dialog-close" type="button" data-close aria-label="بستن حساب کاربری">×</button><div class="eyebrow">حساب راننده</div><h2 id="accountTitle">مسیرت را نگه دار.</h2><p class="modal-intro">سکه‌ها و امتیازهای حساب تو در سامانه ذخیره می‌شوند.</p><div class="account-tabs" role="tablist" aria-label="ورود یا ثبت‌نام"><button id="loginTab" type="button" role="tab" aria-selected="true" aria-controls="loginPanel" tabindex="0">ورود</button><button id="registerTab" type="button" role="tab" aria-selected="false" aria-controls="registerPanel" tabindex="-1">ثبت‌نام</button></div><section id="loginPanel" role="tabpanel" aria-labelledby="loginTab"><form id="loginForm"><label>شماره موبایل<input name="mobile" type="tel" inputmode="tel" autocomplete="tel" placeholder="۰۹۱۲۱۲۳۴۵۶۷" maxlength="20" required dir="ltr" /></label><label>رمز عبور<input name="password" type="password" autocomplete="current-password" maxlength="128" required /></label><p class="form-error" id="loginError" role="alert" hidden></p><button type="submit" class="primary-button">ورود به حساب <span aria-hidden="true">←</span></button></form></section><section id="registerPanel" role="tabpanel" aria-labelledby="registerTab" hidden><form id="registerForm"><div class="form-row"><label>نام<input name="firstName" autocomplete="given-name" maxlength="60" required dir="auto" /></label><label>نام خانوادگی<input name="lastName" autocomplete="family-name" maxlength="60" required dir="auto" /></label></div><label>شماره موبایل<input name="mobile" type="tel" inputmode="tel" autocomplete="tel" placeholder="۰۹۱۲۱۲۳۴۵۶۷" maxlength="20" required dir="ltr" /></label><div class="form-row"><label>جنسیت<select name="gender" required><option value="">انتخاب کنید</option><option value="مرد">مرد</option><option value="زن">زن</option></select></label><label>نام نمایشی<input name="nickname" autocomplete="nickname" minlength="2" maxlength="32" placeholder="نام تو در بازی" required dir="auto" /></label></div><label>رمز عبور<input name="password" type="password" autocomplete="new-password" minlength="8" maxlength="128" required aria-describedby="passwordHint" /></label><small class="field-hint" id="passwordHint">حداقل ۸ نویسه. برای ورودهای بعدی از همین رمز استفاده کن.</small><p class="privacy-note">شماره موبایل فقط در حساب شخصی تو و پنل مدیر قابل مشاهده است.</p><p class="form-error" id="registerError" role="alert" hidden></p><button type="submit" class="primary-button">ساخت حساب و ورود <span aria-hidden="true">←</span></button></form></section><section id="profilePanel" hidden><div class="profile-card"><div class="profile-avatar" id="profileAvatar" aria-hidden="true"></div><h3 id="profileName"></h3><p id="profileMobile"></p><div class="profile-stats"><span><strong id="profileCoins">۰</strong> سکه</span><span><strong id="profileScore">۰</strong> امتیاز</span></div></div><p class="profile-hint" id="syncStatus" role="status">پیشرفت حساب در سامانه ذخیره می‌شود.</p><button id="logoutButton" type="button" class="secondary-button">خروج از حساب</button></section></dialog>
+  <noscript><div class="fatal-error">برای اجرای بازی، جاوااسکریپت مرورگر را فعال کنید.</div></noscript>
+  <script type="module" src="./scripts/ui.js"></script>
+  <script type="module" src="./game.js"></script>
 </body>
 </html>
